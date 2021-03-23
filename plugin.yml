@@ -5,3 +5,7 @@ api: 3.18.0
 load: POSTWORLD
 author: deceitya
 description: MagicAle(e)s
+
+permissions:
+  magicales.command.id:
+    default: true
