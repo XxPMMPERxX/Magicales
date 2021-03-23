@@ -1,0 +1,17 @@
+{
+    "name": "deceitya/magicales",
+    "description": "MagicAle(e)s",
+    "authors": [
+        {
+            "name": "deceitya"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "require": {
+        "pocketmine/pocketmine-mp": "^3.18"
+    }
+}
