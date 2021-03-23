@@ -11,7 +11,11 @@
             "": "src/"
         }
     },
+    "minimum-stability": "dev",
     "require-dev": {
         "pocketmine/pocketmine-mp": "^3.18"
+    },
+    "require": {
+        "cortexpe/commando": "dev-master"
     }
 }

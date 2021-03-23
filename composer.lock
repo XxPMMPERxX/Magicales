@@ -4,8 +4,43 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca10c5623897fdd008c203a10b73310b",
-    "packages": [],
+    "content-hash": "79403d32d3fa754116a02388004c59ec",
+    "packages": [
+        {
+            "name": "cortexpe/commando",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CortexPE/Commando.git",
+                "reference": "9faed72d40f93ff2b6579b52c83425c766ad165a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CortexPE/Commando/zipball/9faed72d40f93ff2b6579b52c83425c766ad165a",
+                "reference": "9faed72d40f93ff2b6579b52c83425c766ad165a",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CortexPE\\Commando\\": [
+                        "src\\CortexPE\\Commando\\"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-only"
+            ],
+            "description": "A Command Framework virion for PocketMine-MP ",
+            "support": {
+                "issues": "https://github.com/CortexPE/Commando/issues",
+                "source": "https://github.com/CortexPE/Commando/tree/master"
+            },
+            "time": "2020-07-14T04:38:29+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "adhocore/json-comment",
@@ -569,8 +604,10 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "cortexpe/commando": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
