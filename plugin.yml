@@ -1,0 +1,7 @@
+name: Magicales
+main: deceitya\magicales\Main
+version: 0.0.0
+api: 3.18.0
+load: POSTWORLD
+author: deceitya
+description: MagicAle(e)s
