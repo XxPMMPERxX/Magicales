@@ -9,6 +9,7 @@ require_once(dirname(__FILE__, 4) . '/vendor/autoload.php');
 use deceitya\magicales\command\IDCommand;
 use deceitya\magicales\command\SummonCommand;
 use deceitya\magicales\item\XxDarknessBurstxX;
+use deceitya\magicales\listener\MagicPointListener;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerCreationEvent;
 use pocketmine\item\ItemFactory;
@@ -41,6 +42,7 @@ class Main extends PluginBase implements Listener
             new SummonCommand($this, 'summon', $this->lang->get('command.summon.description'))
         ]);
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
+        $this->getServer()->getPluginManager()->registerEvents(new MagicPointListener(), $this);
         ItemFactory::registerItem((new XxDarknessBurstxX()), true);
     }
 
