@@ -38,7 +38,7 @@ class Main extends PluginBase
             new IDCommand($this, 'id', $this->lang->get('command.id.description')),
             new SummonCommand($this, 'summon', $this->lang->get('command.summon.description'))
         ]);
-        ItemFactory::registerItem(new XxDarknessBurstxX(), true);
+        ItemFactory::registerItem((new XxDarknessBurstxX()), true);
     }
 
     /**

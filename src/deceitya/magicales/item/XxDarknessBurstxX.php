@@ -16,7 +16,6 @@ class XxDarknessBurstxX extends Item implements IItem
     public function __construct()
     {
         parent::__construct(ItemIds::BLAZE_POWDER, 0, 'XxDarknessBurstxX');
-        $this->setCustomName(Main::getInstance()->getLanguage()->get('item.darkness_burst'));
     }
 
     public function getCost(): int
