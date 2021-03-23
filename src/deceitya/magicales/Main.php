@@ -9,11 +9,13 @@ require_once(dirname(__FILE__, 4) . '/vendor/autoload.php');
 use deceitya\magicales\command\IDCommand;
 use deceitya\magicales\command\SummonCommand;
 use deceitya\magicales\item\XxDarknessBurstxX;
+use pocketmine\event\Listener;
+use pocketmine\event\player\PlayerCreationEvent;
 use pocketmine\item\ItemFactory;
 use pocketmine\lang\BaseLang;
 use pocketmine\plugin\PluginBase;
 
-class Main extends PluginBase
+class Main extends PluginBase implements Listener
 {
     /** @var Main */
     private static $instance;
@@ -38,6 +40,7 @@ class Main extends PluginBase
             new IDCommand($this, 'id', $this->lang->get('command.id.description')),
             new SummonCommand($this, 'summon', $this->lang->get('command.summon.description'))
         ]);
+        $this->getServer()->getPluginManager()->registerEvents($this, $this);
         ItemFactory::registerItem((new XxDarknessBurstxX()), true);
     }
 
@@ -49,5 +52,10 @@ class Main extends PluginBase
     public function getLanguage(): BaseLang
     {
         return $this->lang;
+    }
+
+    public function onPlayerCreation(PlayerCreationEvent $event)
+    {
+        $event->setPlayerClass(MPlayer::class);
     }
 }
