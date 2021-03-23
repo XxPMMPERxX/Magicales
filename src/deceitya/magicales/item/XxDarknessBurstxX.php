@@ -8,6 +8,7 @@ use deceitya\magicales\Main;
 use pocketmine\block\Block;
 use pocketmine\item\Item;
 use pocketmine\item\ItemIds;
+use pocketmine\level\sound\BlazeShootSound;
 use pocketmine\math\Vector3;
 use pocketmine\Player;
 
@@ -42,12 +43,13 @@ class XxDarknessBurstxX extends Item implements IItem
             return;
         }
 
+        $player->level->addSound(new BlazeShootSound($player));
         $players = array_filter($player->level->getPlayers(), function ($p) use ($player) {
             return $player !== $p && $player->distance($p) < 10;
         });
         foreach ($players as $p) {
             $p->setOnFire(10);
-            $p->sendMessage(Main::getInstance()->getLanguage()->get('item.darkness_burst.damaged'));
+            $p->sendTip(Main::getInstance()->getLanguage()->get('item.darkness_burst.damaged'));
         }
     }
 }
