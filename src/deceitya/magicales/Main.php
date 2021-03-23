@@ -8,6 +8,8 @@ require_once(dirname(__FILE__, 4) . '/vendor/autoload.php');
 
 use deceitya\magicales\command\IDCommand;
 use deceitya\magicales\command\SummonCommand;
+use deceitya\magicales\item\XxDarknessBurstxX;
+use pocketmine\item\ItemFactory;
 use pocketmine\lang\BaseLang;
 use pocketmine\plugin\PluginBase;
 
@@ -36,6 +38,7 @@ class Main extends PluginBase
             new IDCommand($this, 'id', $this->lang->get('command.id.description')),
             new SummonCommand($this, 'summon', $this->lang->get('command.summon.description'))
         ]);
+        ItemFactory::registerItem(new XxDarknessBurstxX(), true);
     }
 
     /**
