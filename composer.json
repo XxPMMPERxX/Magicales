@@ -11,7 +11,7 @@
             "": "src/"
         }
     },
-    "require": {
+    "require-dev": {
         "pocketmine/pocketmine-mp": "^3.18"
     }
 }
