@@ -8,6 +8,7 @@ require_once(dirname(__FILE__, 4) . '/vendor/autoload.php');
 
 use deceitya\magicales\command\IDCommand;
 use deceitya\magicales\command\SummonCommand;
+use pocketmine\lang\BaseLang;
 use pocketmine\plugin\PluginBase;
 
 class Main extends PluginBase
@@ -20,6 +21,9 @@ class Main extends PluginBase
         return self::$instance;
     }
 
+    /** @var BaseLang */
+    private $lang;
+
     public function onLoad()
     {
         self::$instance = $this;
@@ -27,9 +31,20 @@ class Main extends PluginBase
 
     public function onEnable()
     {
+        $this->lang = new BaseLang('jpn', $this->getFile() . 'resources' . DIRECTORY_SEPARATOR, 'jpn');
         $this->getServer()->getCommandMap()->registerAll('Magicales', [
-            new IDCommand($this, 'id', 'Get a id and damage of item in hand'),
-            new SummonCommand($this, 'summon', 'Creates an entity at any given position')
+            new IDCommand($this, 'id', $this->lang->get('command.id.description')),
+            new SummonCommand($this, 'summon', $this->lang->get('command.summon.description'))
         ]);
+    }
+
+    /**
+     * メッセージのアレを返す
+     *
+     * @return BaseLang
+     */
+    public function getLanguage(): BaseLang
+    {
+        return $this->lang;
     }
 }
