@@ -9,3 +9,5 @@ description: MagicAle(e)s
 permissions:
   magicales.command.id:
     default: true
+  magicales.command.summon:
+    default: op
