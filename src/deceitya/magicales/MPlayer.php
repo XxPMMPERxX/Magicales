@@ -12,7 +12,7 @@ use RuntimeException;
 class MPlayer extends Player
 {
     /** @var MagicPoint */
-    private $mp;
+    public $mp;
     /** @var int */
     private $lastIncreaseTick = 0;
 
