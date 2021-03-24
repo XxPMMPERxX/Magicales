@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace deceitya\magicales\session;
 
-use deceitya\magicales\event\session\SessionPhaseSwitchEvent;
-use RuntimeException;
+use deceitya\magicales\Main;
+use Generator;
+use pocketmine\Server;
 
 class Session
 {
@@ -25,7 +26,7 @@ class Session
     /** @var SessionId */
     private $id;
     /** @var Phase */
-    public $phase;
+    private $phase;
     /** @var string[] */
     private $players = [];
 
@@ -37,6 +38,11 @@ class Session
     public function getId(): SessionId
     {
         return $this->id;
+    }
+
+    public function getPhase(): Phase
+    {
+        return $this->phase;
     }
 
     /**
@@ -82,15 +88,28 @@ class Session
         return false;
     }
 
-    public function nextPhase(): bool
+    /**
+     * 試合のフロー
+     *
+     * @return Generator
+     */
+    public function next(): Generator
     {
-        try {
-            $this->phase = $this->phase->next();
-            (new SessionPhaseSwitchEvent($this))->call();
+        $this->startRecruiting();
+        yield;
 
-            return true;
-        } catch (RuntimeException $e) {
-            return false;
-        }
+        $this->startPrepare();
+        yield;
+    }
+
+    private function startRecruiting()
+    {
+        $this->phase = new Phase(Phase::PHASE_RECRUITMENT);
+        Server::getInstance()->broadcastMessage(Main::getInstance()->getLanguage()->get('session.start_recruit'));
+    }
+
+    private function startPrepare()
+    {
+        $this->phase = new Phase(Phase::PHASE_PREPARE);
     }
 }
