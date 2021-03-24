@@ -100,16 +100,32 @@ class Session
 
         $this->startPrepare();
         yield;
+
+        $this->startGame();
+        yield;
+
+        $this->finishGame();
+        yield;
     }
 
-    private function startRecruiting()
+    private function startRecruiting(): void
     {
         $this->phase = new Phase(Phase::PHASE_RECRUITMENT);
         Server::getInstance()->broadcastMessage(Main::getInstance()->getLanguage()->get('session.start_recruit'));
     }
 
-    private function startPrepare()
+    private function startPrepare(): void
     {
         $this->phase = new Phase(Phase::PHASE_PREPARE);
+    }
+
+    private function startGame(): void
+    {
+        $this->phase = new Phase(Phase::PHASE_INGAME);
+    }
+
+    private function finishGame(): void
+    {
+        $this->phase = new Phase(Phase::PHASE_FINISHED);
     }
 }
