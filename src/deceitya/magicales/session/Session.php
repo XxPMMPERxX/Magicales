@@ -29,6 +29,8 @@ class Session
     private $phase;
     /** @var string[] */
     private $players = [];
+    /** @var Generator */
+    private $flow;
 
     private function __construct(SessionId $id)
     {
@@ -88,12 +90,21 @@ class Session
         return false;
     }
 
+    public function next()
+    {
+        if (!isset($this->flow)) {
+            $this->flow = $this->flow();
+        }
+
+        $this->flow->next();
+    }
+
     /**
      * 試合のフロー
      *
      * @return Generator
      */
-    public function next(): Generator
+    private function flow(): Generator
     {
         $this->startRecruiting();
         yield;
