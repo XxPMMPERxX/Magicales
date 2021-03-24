@@ -10,6 +10,7 @@ use deceitya\magicales\command\IDCommand;
 use deceitya\magicales\command\SummonCommand;
 use deceitya\magicales\item\XxDarknessBurstxX;
 use deceitya\magicales\listener\MagicPointListener;
+use deceitya\magicales\session\Session;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerCreationEvent;
 use pocketmine\item\ItemFactory;
@@ -28,6 +29,10 @@ class Main extends PluginBase implements Listener
 
     /** @var BaseLang */
     private $lang;
+    /** @var Session */
+    private $session;
+    /** @var Session */
+    private $nextSession;
 
     public function onLoad()
     {
@@ -54,6 +59,16 @@ class Main extends PluginBase implements Listener
     public function getLanguage(): BaseLang
     {
         return $this->lang;
+    }
+
+    public function getSession(): Session
+    {
+        return $this->session;
+    }
+
+    public function getNextSession(): Session
+    {
+        return $this->nextSession;
     }
 
     public function onPlayerCreation(PlayerCreationEvent $event)
