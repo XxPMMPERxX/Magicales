@@ -9,10 +9,35 @@ use RuntimeException;
 
 class Session
 {
+    /** @var int */
+    private static $counter = 0;
+
+    /**
+     * 新しいセッションを作成する
+     *
+     * @return Session
+     */
+    public static function createSession(): Session
+    {
+        return new Session(new SessionId(self::$counter++));
+    }
+    
+    /** @var SessionId */
+    private $id;
     /** @var Phase */
     public $phase;
     /** @var string[] */
     private $players = [];
+
+    private function __construct(SessionId $id)
+    {
+        $this->id = $id;
+    }
+
+    public function getId(): SessionId
+    {
+        return $this->id;
+    }
 
     /**
      * プレイヤーを追加する
