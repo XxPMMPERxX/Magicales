@@ -55,7 +55,7 @@ class Session
      */
     public function addPlayer(string $player): bool
     {
-        if ($this->isPlayerJoined($player)) {
+        if ($this->phase->getValue() !== Phase::PHASE_RECRUITMENT || $this->isPlayerJoined($player)) {
             return false;
         }
         
@@ -100,6 +100,18 @@ class Session
     }
 
     /**
+     * Undocumented function
+     *
+     * @return Generator|Player[]
+     */
+    public function getPlayers(): Generator
+    {
+        foreach ($this->players as $player) {
+            yield Server::getInstance()->getPlayer($player);
+        }
+    }
+
+    /**
      * 試合のフロー
      *
      * @return Generator
@@ -128,15 +140,22 @@ class Session
     private function startPrepare(): void
     {
         $this->phase = new Phase(Phase::PHASE_PREPARE);
+        $server = Server::getInstance();
+        $level = $server->getLevelByName('pvp');
+        foreach ($this->getPlayers() as $player) {
+            $player->teleport($level->getSafeSpawn());
+        }
     }
 
     private function startGame(): void
     {
         $this->phase = new Phase(Phase::PHASE_INGAME);
+        // TODO: PvP on
     }
 
     private function finishGame(): void
     {
         $this->phase = new Phase(Phase::PHASE_FINISHED);
+        // 結果表示とロビーに戻す
     }
 }
