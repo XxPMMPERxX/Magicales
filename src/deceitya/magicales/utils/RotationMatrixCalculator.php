@@ -11,44 +11,35 @@ abstract class RotationMatrixCalculator
     public static function calcXRotate(Vector3 $v, float $degree): Vector3
     {
         $rad = deg2rad($degree);
-        $r = [
-            [1, 0, 0],
-            [0, cos($rad), -sin($rad)],
-            [0, sin($rad), cos($rad)]
-        ];
+        $cos = cos($rad);
+        $sin = sin($rad);
         return new Vector3(
             $v->x,
-            $v->y * $r[1][1] + $v->z * $r[1][2],
-            $v->y * $r[2][1] + $v->z * $r[2][2]
+            $v->y * $cos - $v->z * $sin,
+            $v->y * $sin + $v->z * $cos
         );
     }
 
     public static function calcYRotate(Vector3 $v, float $degree): Vector3
     {
         $rad = deg2rad($degree);
-        $r = [
-            [cos($rad), 0, sin($rad)],
-            [0, 1, 0],
-            [-sin($rad), 0, cos($rad)]
-        ];
+        $cos = cos($rad);
+        $sin = sin($rad);
         return new Vector3(
-            $v->x * $r[0][0] + $v->z * $r[0][2],
+            $v->z * $sin + $v->x * $cos,
             $v->y,
-            $v->x * $r[2][0] + $v->z * $r[2][2]
+            $v->z * $cos - $v->x * $sin
         );
     }
 
     public static function calcZRotate(Vector3 $v, float $degree): Vector3
     {
         $rad = deg2rad($degree);
-        $r = [
-            [cos($rad), -sin($rad), 0],
-            [sin($rad), cos($rad), 0],
-            [0, 0, 1]
-        ];
+        $cos = cos($rad);
+        $sin = sin($rad);
         return new Vector3(
-            $v->x *$r[0][0] + $v->y * $r[0][1],
-            $v->x * $r[1][0] + $v->y * $r[1][1],
+            $v->x * $cos - $v->y * $sin,
+            $v->x * $sin + $v->y * $cos,
             $v->z
         );
     }
