@@ -11,11 +11,15 @@ use deceitya\magicales\command\SummonCommand;
 use deceitya\magicales\item\XxDarknessBurstxX;
 use deceitya\magicales\listener\MagicPointListener;
 use deceitya\magicales\session\Session;
+use deceitya\magicales\utils\RotationMatrixCalculator;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerCreationEvent;
 use pocketmine\item\ItemFactory;
 use pocketmine\lang\BaseLang;
+use pocketmine\level\particle\FlameParticle;
+use pocketmine\math\Vector3;
 use pocketmine\plugin\PluginBase;
+use pocketmine\scheduler\ClosureTask;
 
 class Main extends PluginBase implements Listener
 {
@@ -49,6 +53,21 @@ class Main extends PluginBase implements Listener
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->getServer()->getPluginManager()->registerEvents(new MagicPointListener(), $this);
         ItemFactory::registerItem((new XxDarknessBurstxX()), true);
+
+        $this->getScheduler()->scheduleRepeatingTask(new ClosureTask(
+            function (int $currentTick): void {
+                $this->lobbyParticle();
+            }
+        ), 1);
+    }
+
+    private $i = 0;
+
+    public function lobbyParticle()
+    {
+        $this->i += 4;
+        $pos = $this->getServer()->getDefaultLevel()->getSafeSpawn();
+        $pos->level->addParticle(new FlameParticle(RotationMatrixCalculator::calcYRotate((new Vector3(0, 0, 1))->add($pos), $this->i)));
     }
 
     /**
