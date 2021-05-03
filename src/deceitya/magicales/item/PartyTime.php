@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace deceitya\magicales\item;
 
 use pocketmine\block\Block;
+use pocketmine\entity\Effect;
+use pocketmine\entity\EffectInstance;
 use pocketmine\entity\Entity;
 use pocketmine\item\Item;
 use pocketmine\item\ItemIds;
@@ -42,7 +44,7 @@ class PartyTime extends Item implements IItem
             return;
         }
 
-        for ($i = 60; $i <= 360; $i += 60) {
+        for ($i = 60; $i < 360; $i += 60) {
             $entity = Entity::createEntity(
                 'Mirage',
                 $player->level,
@@ -52,5 +54,6 @@ class PartyTime extends Item implements IItem
             );
             $entity->spawnToAll();
         }
+        // $player->addEffect(new EffectInstance(Effect::getEffect(Effect::INVISIBILITY), 3 * 20));
     }
 }

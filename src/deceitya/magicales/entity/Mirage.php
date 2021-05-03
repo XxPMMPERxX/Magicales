@@ -41,7 +41,9 @@ class Mirage extends Human
         $motion = RotationMatrixCalculator::calcYRotate($this->owner->subtract($this->ownerLastPosition), $this->angle);
         $this->move($motion->x, $motion->y, $motion->z);
         $this->pitch = $this->owner->pitch;
-        $this->yaw = ($this->owner->yaw + $this->angle) % 360;
+        $this->yaw = ($this->owner->yaw - $this->angle) % 360;
+
+        $this->setSneaking($this->owner->isSneaking());
 
         $this->ownerLastPosition = $this->owner->getPosition();
         
