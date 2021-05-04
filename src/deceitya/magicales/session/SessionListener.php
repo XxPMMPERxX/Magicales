@@ -22,8 +22,13 @@ class SessionListener implements Listener
     public function onEntityDamage(EntityDamageEvent $event)
     {
         $entity = $event->getEntity();
-        if ($this->pvpOn && $entity instanceof Player) {
+        if (!$this->pvpOn && $entity instanceof Player) {
             $event->setCancelled();
         }
+    }
+
+    public function setCanPvP(bool $value)
+    {
+        $this->pvpOn = $value;
     }
 }
