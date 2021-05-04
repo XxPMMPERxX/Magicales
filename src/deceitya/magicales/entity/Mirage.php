@@ -30,13 +30,14 @@ class Mirage extends Human
         $this->owner = $owner;
         $this->angle = $angle;
         $this->ownerLastPosition = $this->owner->getPosition();
+        
+        $this->setMaxHealth(1);
+        $this->setHealth(1);
     }
 
-    public function onUpdate(int $currentTick): bool
+    public function entityBaseTick(int $tickDiff = 1): bool
     {
-        if (parent::onUpdate($currentTick)) {
-            return false;
-        }
+        $hasUpdate = parent::entityBaseTick($tickDiff);
 
         $motion = RotationMatrixCalculator::calcYRotate($this->owner->subtract($this->ownerLastPosition), $this->angle);
         $this->move($motion->x, $motion->y, $motion->z);
@@ -47,6 +48,6 @@ class Mirage extends Human
 
         $this->ownerLastPosition = $this->owner->getPosition();
         
-        return true;
+        return $hasUpdate;
     }
 }
