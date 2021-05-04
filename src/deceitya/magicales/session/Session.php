@@ -158,4 +158,13 @@ class Session
         $this->phase = new Phase(Phase::PHASE_FINISHED);
         // 結果表示とロビーに戻す
     }
+
+    /**
+     * セッションを破棄する
+     *
+     * @return void
+     */
+    private function dispose(): void
+    {
+    }
 }
