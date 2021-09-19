@@ -17,8 +17,8 @@ class SessionNextCommand extends BaseSubCommand
 
     public function onRun(CommandSender $sender, string $aliasUsed, array $args): void
     {
-        $main = Main::getInstance();
-        $main->getSession()->next();
-        $sender->sendMessage($main->getLanguage()->get('command.session.next'));
+        $plugin = Main::getInstance();
+        $plugin->getSession()->next();
+        $sender->sendMessage($plugin->getLanguage()->get('command.session.next'));
     }
 }

@@ -17,9 +17,9 @@ class SessionNewCommand extends BaseSubCommand
 
     public function onRun(CommandSender $sender, string $aliasUsed, array $args): void
     {
-        $main = Main::getInstance();
-        $main->nextSession();
-        $session = $main->getSession();
-        $sender->sendMessage($main->getLanguage()->translateString('command.session.new', [$session->getId()->getValue()]));
+        $plugin = Main::getInstance();
+        $plugin->nextSession();
+        $session = $plugin->getSession();
+        $sender->sendMessage($plugin->getLanguage()->translateString('command.session.new', [$session->getId()->getValue()]));
     }
 }

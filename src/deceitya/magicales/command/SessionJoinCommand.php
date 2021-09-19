@@ -25,8 +25,9 @@ class SessionJoinCommand extends BaseSubCommand
             return;
         }
 
-        $session = Main::getInstance()->getSession()->getPhase() === Phase::PHASE_RECRUITMENT ? Main::getInstance()->getSession() : Main::getInstance()->getNextSession();
+        $plugin = Main::getInstance();
+        $session = $plugin->getSession()->getPhase() === Phase::PHASE_RECRUITMENT ? $plugin->getSession() : $plugin->getNextSession();
         $session->addPlayer($sender->getName());
-        $sender->sendMessage($main->getLanguage()->translateString('command.session.join', [(string) $session->getId()->getValue()]));
+        $sender->sendMessage($plugin->getLanguage()->translateString('command.session.join', [(string) $session->getId()->getValue()]));
     }
 }
