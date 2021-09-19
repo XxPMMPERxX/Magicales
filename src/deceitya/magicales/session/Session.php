@@ -134,28 +134,39 @@ class Session
     private function startRecruiting(): void
     {
         $this->phase = new Phase(Phase::PHASE_RECRUITMENT);
-        Server::getInstance()->broadcastMessage(Main::getInstance()->getLanguage()->get('session.start_recruit'));
+        Server::getInstance()->broadcastMessage(Main::getInstance()->getLanguage()->get('session.phase.recruit'));
     }
 
     private function startPrepare(): void
     {
         $this->phase = new Phase(Phase::PHASE_PREPARE);
+
         $server = Server::getInstance();
-        $level = $server->getLevelByName('pvp');
+        $server->broadcastMessage(Main::getInstance()->getLanguage()->get('session.phase.prepare'));
+
+        $pos = $server->getLevelByName('pvp')->getSafeSpawn();
         foreach ($this->getPlayers() as $player) {
-            $player->teleport($level->getSafeSpawn());
+            $player->teleport($pos);
         }
     }
 
     private function startGame(): void
     {
         $this->phase = new Phase(Phase::PHASE_INGAME);
-        // TODO: PvP on
+        
+        Server::getInstance()->broadcastMessage(Main::getInstance()->getLanguage()->get('session.phase.ingame'));
     }
 
     private function finishGame(): void
     {
         $this->phase = new Phase(Phase::PHASE_FINISHED);
-        // 結果表示とロビーに戻す
+
+        $server = Server::getInstance();
+        $server->broadcastMessage(Main::getInstance()->getLanguage()->get('session.phase.finish'));
+
+        $pos = $server->getDefaultLevel()->getSafeSpawn();
+        foreach ($this->getPlayers() as $player) {
+            $player->teleport($pos);
+        }
     }
 }
